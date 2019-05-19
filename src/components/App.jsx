@@ -7,19 +7,27 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: []
+      todos: [],
+      visibilityFilter: 'SHOW_ALL'
     };
     this.AddTodo = this.AddTodo.bind(this);
+    this.setVisibilityFilter = this.setVisibilityFilter.bind(this);
   }
 
   AddTodo(item) {
-    let { list } = this.state;
-    list.push({
-      id: list.length,
+    let { todos } = this.state;
+    todos.push({
+      id: todos.length,
       complete: false,
       item
     });
-    this.setState({ list });
+    this.setState({ todos });
+  }
+
+  setVisibilityFilter(visibilityFilter) {
+    this.setState({
+      visibilityFilter
+    });
   }
 
   render() {
@@ -27,8 +35,11 @@ class App extends React.Component {
       <React.Fragment>
         <h1>Todo List</h1>
         <AddTodo addTodo={this.AddTodo} />
-        <TodoList list={this.state.list} />
-        <Footer />
+        <TodoList todos={this.state.todos} />
+        <Footer
+          visiblityFilter={this.state.visibilityFilter}
+          setVisiblityFilter={this.setVisibilityFilter}
+        />
       </React.Fragment>
     );
   }

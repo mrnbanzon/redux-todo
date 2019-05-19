@@ -1,13 +1,30 @@
 import React from 'react';
+import Link from './Link.jsx';
 
-const Footer = () => (
+const Footer = ({ visiblityFilter, setVisiblityFilter }) => (
   <div>
     <p>
-      Show: <a>All</a>
+      Show:{' '}
+      <Link
+        active={'SHOW_ALL' === visiblityFilter}
+        onClick={() => setVisiblityFilter('SHOW_ALL')}
+      >
+        All
+      </Link>
       {', '}
-      <a>Active</a>
+      <Link
+        active={'SHOW_ACTIVE' === visiblityFilter}
+        onClick={() => setVisiblityFilter('SHOW_ACTIVE')}
+      >
+        Active
+      </Link>
       {', '}
-      <a>Completed</a>
+      <Link
+        active={'SHOW_COMPLETE' === visiblityFilter}
+        onClick={() => setVisiblityFilter('SHOW_COMPLETE')}
+      >
+        Completed
+      </Link>
     </p>
   </div>
 );
