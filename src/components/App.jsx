@@ -11,17 +11,32 @@ class App extends React.Component {
       visibilityFilter: 'SHOW_ALL'
     };
     this.AddTodo = this.AddTodo.bind(this);
+    this.onTodoClick = this.onTodoClick.bind(this);
     this.setVisibilityFilter = this.setVisibilityFilter.bind(this);
   }
 
   AddTodo(item) {
     let { todos } = this.state;
-    todos.push({
-      id: todos.length,
-      complete: false,
-      item
+    this.setState({
+      todos: [
+        ...todos,
+        {
+          id: todos.length,
+          complete: false,
+          item
+        }
+      ]
     });
-    this.setState({ todos });
+  }
+
+  onTodoClick(id) {
+    let { todos } = this.state;
+    this.setState({
+      todos: todos.map(todo => {
+        if (todo.id === id) todo.complete = !todo.complete;
+        return todo;
+      })
+    });
   }
 
   setVisibilityFilter(visibilityFilter) {
@@ -35,7 +50,11 @@ class App extends React.Component {
       <React.Fragment>
         <h1>Todo List</h1>
         <AddTodo addTodo={this.AddTodo} />
-        <TodoList todos={this.state.todos} />
+        <TodoList
+          todos={this.state.todos}
+          onTodoClick={this.onTodoClick}
+          visibilityFilter={this.state.visibilityFilter}
+        />
         <Footer
           visiblityFilter={this.state.visibilityFilter}
           setVisiblityFilter={this.setVisibilityFilter}
