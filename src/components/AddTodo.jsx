@@ -9,7 +9,10 @@ class AddTodo extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.textInput.current.value);
+    let input = this.textInput.current.value;
+    if (input.length > 0) {
+      this.props.addTodo(input);
+    }
     this.textInput.current.value = '';
   }
 
